@@ -65,7 +65,7 @@ JSONPlaceholder fakes write operations: POST, PUT, PATCH and DELETE return reali
 
 ## Running the tests
 
-Requirements: JDK 8 and Maven.
+Requirements: Maven and a JDK that can compile Java 8 sources (tested with JDK 17).
 
 Run from the project root (config files are read relative to the working directory):
 
@@ -88,6 +88,20 @@ username=Samantha
 | TestNG default report | `target/surefire-reports/index.html` |
 | Allure results | `allure-results/` (view with `allure serve allure-results`) |
 | Log file | `applog.txt` |
+
+### Extent report
+
+Every test with its status, and each request, status check and result step by step.
+
+![Extent report](docs/images/extent-report.png)
+
+### Allure report
+
+Overview with the pass rate, suite results and defect categories.
+
+![Allure report](docs/images/allure-report.png)
+
+The screenshots come from a full run: 12 tests passed, plus `failTest` and `skipTest`, which fail and skip on purpose to show those layouts.
 
 ## Adding a new endpoint
 
