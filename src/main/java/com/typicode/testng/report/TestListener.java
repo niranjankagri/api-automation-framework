@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 import org.testng.IReporter;
 import org.testng.IResultMap;
@@ -376,12 +377,14 @@ public class TestListener implements IReporter {
 					String.valueOf(totalTestSkipped));
 
 			// Replace test suite place holder with custom test suite summary.
-			customReportTemplateStr = customReportTemplateStr.replaceAll("\\$Test_Case_Summary\\$", customSuiteSummary);
+			// (quoteReplacement: the text can contain '$', e.g. in stack traces, which replaceAll would read as a group reference)
+			customReportTemplateStr = customReportTemplateStr.replaceAll("\\$Test_Case_Summary\\$",
+					Matcher.quoteReplacement(customSuiteSummary));
 
 			// Replace test methods place holder with custom test method
 			// summary.
 			customReportTemplateStr = customReportTemplateStr.replaceAll("\\$Test_Case_Detail\\$",
-					customTestMethodSummary);
+					Matcher.quoteReplacement(customTestMethodSummary));
 
 			// Write replaced test report content to
 			// custom-emailable-report.html.

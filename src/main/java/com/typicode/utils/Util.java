@@ -6,17 +6,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import com.github.javafaker.Faker;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+
+import net.datafaker.Faker;
 
 public class Util {
 
 	public static String EMAIL_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-	final static Logger logger = Logger.getLogger(Util.class);
+	final static Logger logger = LogManager.getLogger(Util.class);
 	private static ExtentTest extendedLogger;
 	private static Faker faker = new Faker();
 	
@@ -37,8 +38,7 @@ public class Util {
      * @param  message  
      */
 	public static void logInfoMessage(String message) {
-		PropertyConfigurator.configure(System.getProperty("user.dir") + "/log4j.properties");
-		getLogger().log(LogStatus.PASS, message);
+		getLogger().log(Status.PASS, message);
 		logger.info(message);
 	}
 	
