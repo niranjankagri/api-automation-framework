@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>$TestNG_Custom_Report_Title$</title>
+<style type="text/css">
+table {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 10px;
+	border-collapse: collapse;
+	empty-cells: show
+}
+
+tr:hover {
+	background-color: #ddd;
+}
+
+th, td {
+	border: 1px solid #009;
+	padding: .25em .5em border: 1px solid #ddd;
+	padding: 8px;
+}
+
+th {
+	vertical-align: bottom padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: white;
+	color: black;
+}
+</style>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {
+		'packages' : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+
+		var data = google.visualization.arrayToDataTable([
+				[ 'Status', 'Tests' ], [ 'Passed', $Passed_Tests$ ], [ 'Failed', $Failed_Tests$ ],
+				[ 'Skipped', $Skipped_Tests$ ] ]);
+
+		var options = {
+			title : 'Test Results',
+			slices : {
+				0 : {
+					color : 'green'
+				},
+				1 : {
+					color : 'red'
+				},
+				2 : {
+					color : 'yellow'
+				}
+			},
+			pieSliceTextStyle : {
+				color : 'black',
+			},
+		};
+
+		var chart = new google.visualization.PieChart(document
+				.getElementById('piechart'));
+
+		chart.draw(data, options);
+	}
+</script>
+</head>
+<body>
+
+	<center>
+		<b>$TestNG_Custom_Report_Title$</b>
+		<div id="piechart" style="width: 900px; height: 500px;"></div>
+	</center>
+	<table>
+		<thead>
+			<tr>
+				<th>Test Name</th>
+				<th># Total Method</th>
+				<th># Passed</th>
+				<th># Skipped</th>
+				<th># Failed</th>
+				<th>Start Time</th>
+				<th>End Time</th>
+				<th>Execute Time (mm:hh:ss:ms)</th>
+				<th>Included Groups</th>
+				<th>Excluded Groups</th>
+			</tr>
+		</thead>
+		$Test_Case_Summary$
+	</table>
+	<table id="summary">
+		<thead>
+			<tr>
+				<th>Class</th>
+				<th>Method</th>
+				<th>Start Time</th>
+				<th>Execution Time (mm:hh:ss:ms)</th>
+				<th>Parameter</th>
+				<th>Reporter Message</th>
+				<th>Exception Message</th>
+			</tr>
+		</thead>
+		$Test_Case_Detail$
+	</table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Build output
+target/
+bin/
+test-output/
+allure-results/
+
+# Logs
+*.log
+applog.txt
+
+# IDE / tools
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.dbeaver/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
