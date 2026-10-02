@@ -1,11 +1,19 @@
 package com.typicode.response;
 
+/**
+ * A comment from GET /comments, mapped from JSON by ResponseBuilder.
+ */
 public class Comment {
 
+	// Id of the comment
 	private int id;
+	// Id of the post the comment belongs to
 	private int postId;
+	// Title of the comment
 	private String name;
+	// Email address of the commenter (checked by the email format test)
 	private String email;
+	// Text of the comment
 	private String body;
 
 	public int getId() {

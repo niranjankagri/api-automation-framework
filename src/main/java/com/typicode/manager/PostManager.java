@@ -13,10 +13,15 @@ import com.typicode.utils.Util;
 
 import io.qameta.allure.Step;
 
+/**
+ * Requests for the /posts resource: read, create, update and delete posts.
+ * Each method checks the status code and maps the JSON onto Post objects.
+ * JSONPlaceholder fakes the write requests: they return a realistic response but nothing is stored.
+ */
 public class PostManager extends RequestBuilder {
-	
+
 	/**
-     * Get the list of all post done by user 
+     * Get the list of all posts
      * @return List<Post>   the list of Post class object
      */
 	@SuppressWarnings("unchecked")
@@ -29,7 +34,9 @@ public class PostManager extends RequestBuilder {
 	}
 	
 	/**
-     * Get the post by postId 
+     * Get the post by postId
+     * @param  postId   the id of the post.
+     * @return Post     the Post class object.
      */
 	@Step("Get all posts and validate response code")
 	public Post getPostByPostId(int postId) {
@@ -39,6 +46,11 @@ public class PostManager extends RequestBuilder {
 		return  (Post) response.getResponseAsObject(Post.class);
 	}
 	
+	/**
+     * Get the list of all posts written by a user
+     * @param  userId       the id of the user.
+     * @return List<Post>   the list of Post class object
+     */
 	@SuppressWarnings("unchecked")
 	@Step("Retrieves all the posts created by user with userId : {0}, validate response code and get posts")
 	public List<Post> getAllPostsOfUserByUserId(int userId) {
@@ -49,7 +61,9 @@ public class PostManager extends RequestBuilder {
 	}
 	
 	/**
-     * Create post of user 
+     * Create post of user
+     * @param  post     the new post as JSON (userId, title, body).
+     * @return String   the response body: the created post including its new id.
      */
 	@Step("Create post and validate response code")
 	public String createPost(String post) {
@@ -60,7 +74,10 @@ public class PostManager extends RequestBuilder {
 	}
 	
 	/**
-     * Update post by put method 
+     * Update post by put method (replaces the whole post)
+     * @param  post     the complete post as JSON.
+     * @param  postId   the id of the post to update.
+     * @return Post     the updated post.
      */
 	@Step("Update post by put and validate response code")
 	public Post updatePostByPut(String post, int postId) {
@@ -71,7 +88,10 @@ public class PostManager extends RequestBuilder {
 	}
 	
 	/**
-     * Update post by patch method 
+     * Update post by patch method (changes only the given fields)
+     * @param  post     the fields to change as JSON.
+     * @param  postId   the id of the post to update.
+     * @return Post     the updated post.
      */
 	@Step("Update post by patch and validate response code")
 	public Post updatePostByPatch(String post, int postId) {
@@ -82,7 +102,8 @@ public class PostManager extends RequestBuilder {
 	}
 	
 	/**
-     * Delete post of user 
+     * Delete post of user
+     * @param  postId   the id of the post to delete.
      */
 	@Step("Delete post and validate response code")
 	public void deletePostOfUser(int postId) {

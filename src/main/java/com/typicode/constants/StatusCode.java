@@ -1,5 +1,8 @@
 package com.typicode.constants;
 
+/**
+ * HTTP status codes the managers expect from the API.
+ */
 public class StatusCode {
 
 	// Status code for success

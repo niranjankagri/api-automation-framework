@@ -17,8 +17,15 @@ import com.typicode.utils.Util;
 
 import io.qameta.allure.Description;
 
+/**
+ * API tests for JSONPlaceholder (https://jsonplaceholder.typicode.com): users, posts and comments.
+ * The username comes from src/resources/data.properties.
+ */
 public class TypicodeTest extends BaseTest {
 	
+	/**
+	 * GET /users returns at least one user
+	 */
 	@Test (description="Validating get all users endpoint")
 	@Description("Test Description: Validating get all users endpoint")
 	public void validateGetAllUsersEndpoint() {
@@ -26,6 +33,9 @@ public class TypicodeTest extends BaseTest {
 		Assert.assertNotEquals(usersList.size(), 0);
 	}
 	
+	/**
+	 * GET /users?username= finds the user from data.properties, with every field filled
+	 */
 	@Test (description="Validating get user by username endpoint")
 	@Description("Test Description: Validating get user by username endpoint")
 	public void validateGetUserByUsernameEndpoint() {
@@ -40,6 +50,9 @@ public class TypicodeTest extends BaseTest {
 		Assert.assertNotNull(user.getCompany());
 	}
 	
+	/**
+	 * GET /posts returns at least one post
+	 */
 	@Test (description="Validating get all posts endpoint")
 	@Description("Test Description: Validating get all posts endpoint")
 	public void validateGetAllPostsEndpoint() {
@@ -47,6 +60,9 @@ public class TypicodeTest extends BaseTest {
 		Assert.assertNotEquals(postsList.size(), 0);
 	}
 	
+	/**
+	 * GET /posts?userId= returns the posts of the searched user
+	 */
 	@Test (description="Validating get all posts of user by userid endpoint")
 	@Description("Test Description: Validating get all posts of user by userid endpoint")
 	public void validateGetAllPostsOfUserByUserIdEndpoint() {
@@ -55,6 +71,9 @@ public class TypicodeTest extends BaseTest {
 		Assert.assertNotEquals(userPosts.size(), 0);
 	}
 	
+	/**
+	 * GET /comments returns at least one comment
+	 */
 	@Test (description="Validating get all comments endpoint")
 	@Description("Test Description: Validating get all comments endpoint")
 	public void validateGetAllCommentsEndpoint() {
@@ -62,6 +81,9 @@ public class TypicodeTest extends BaseTest {
 		Assert.assertNotEquals(commentsOnPosts.size(), 0);
 	}
 	
+	/**
+	 * GET /comments?postId= returns comments for the posts of the searched user
+	 */
 	@Test (description="Validating get all comments on post by postid endpoint")
 	@Description("Test Description: Validating get all comments on post by postid endpoint")
 	public void validateGetAllCommentsOnPostByPostIdEndpoint() {
@@ -71,6 +93,10 @@ public class TypicodeTest extends BaseTest {
 		Assert.assertNotEquals(commentsOnPosts.size(), 0);
 	}
 
+	/**
+	 * Main scenario: user by username -> their posts -> all comments on those posts;
+	 * every comment email must be valid (soft asserts, so all invalid emails are reported)
+	 */
 	@Test (description="Validating emails in the comment section are in the proper format")
 	@Description("Test Description: Validating emails in the comment section are in the proper format")
 	public void validateEmailFormatOnComments() {
@@ -84,11 +110,15 @@ public class TypicodeTest extends BaseTest {
 		softAssert.assertAll();
 	}
 	
+	/**
+	 * POST /posts creates a post with random title and body; the response contains the new id
+	 */
 	@Test (description="Validating create post endpoint")
 	@Description("Test Description: Validating create post endpoint")
 	public void validateCreatePostEndpoint() {
 		User user = Manager.getUserManager().getUserByUserName(getUsername());
 		
+		// Request body for the new post
 		JSONObject post = new JSONObject();
 		post.put("userId", user.getId());
 		post.put("title", Util.getRandomWord());
@@ -96,16 +126,23 @@ public class TypicodeTest extends BaseTest {
 		
 		String responseBody = Manager.getPostManager().createPost(post.toString());
 		
+		// The created post comes back with an id
 		post = new JSONObject(responseBody);
 		Assert.assertNotNull(post.get("id"));
 	}
 	
+	/**
+	 * PUT /posts/1 replaces post 1 with a new random title and body
+	 */
 	@Test (description="Validating update post by put method")
 	@Description("Test Description: Validating update post by put method")
 	public void validateUpdatePostbyPutMethod() {
 		String postTitle = Util.getRandomWord();
 		String postBody = Util.getRandomWord();
 		
+		// Read post 1 and change its title and body
+		// Note: Post has no toString(), so post.toString() below sends "com.typicode.response.Post@..." instead of JSON;
+		// JSONPlaceholder still answers 200
 		Post post = Manager.getPostManager().getPostByPostId(1);
 		post.setTitle(postTitle);
 		post.setBody(postBody);
@@ -115,12 +152,16 @@ public class TypicodeTest extends BaseTest {
 		Assert.assertEquals(post.getId(), 1);
 	}
 	
+	/**
+	 * PATCH /posts/1 changes only the title and body of post 1
+	 */
 	@Test (description="Validating update post by patch method")
 	@Description("Test Description: Validating update post by patch method")
 	public void validateUpdatePostbyPatchMethod() {
 		String postTitle = Util.getRandomWord();
 		String postBody = Util.getRandomWord();
 		
+		// Only the fields to change
 		JSONObject body = new JSONObject();
 		body.put("title", postTitle);
 		body.put("body", postBody);
@@ -130,6 +171,9 @@ public class TypicodeTest extends BaseTest {
 		Assert.assertEquals(post.getId(), 1);
 	}
 	
+	/**
+	 * DELETE /posts/1 returns 200 (the status check is in PostManager)
+	 */
 	@Test (description="Validating delete post endpoint")
 	@Description("Test Description: Validating delete post endpoint")
 	public void validateDeletePostEndpoint() {
@@ -138,18 +182,27 @@ public class TypicodeTest extends BaseTest {
 		
 	}
 	
+	/**
+	 * Demo test that always passes, to show the passed layout in the reports
+	 */
 	@Test (description="Checking pass test layout")
 	@Description("Test Description: Pass test layout")
 	public void passTest(){
 		Assert.assertTrue(true);
 	}
 	
+	/**
+	 * Demo test that always fails, to show the failed layout in the reports
+	 */
 	@Test (description="Checking fail test layout")
 	@Description("Test Description: Fail test layout")
 	public void failTest(){
 		Assert.assertTrue(false);
 	}
 	
+	/**
+	 * Demo test that is always skipped, to show the skipped layout in the reports
+	 */
 	@Test (description="Checking skip test layout")
 	@Description("Test Description: Skip test layout")
 	public void skipTest(){

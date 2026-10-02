@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- TestNG suite run by `mvn test` (see the Surefire plugin in pom.xml) -->
 <suite name="TypicodeTestSuite">
 	<listeners>
+		<!-- Writes custom-emailable-report.html from src/resources/customize-emailable-report-template.html -->
 		<listener class-name="com.typicode.testng.report.TestListener" />
 	</listeners>
+	<!-- thread-count has no effect here: parallel mode is not set, so the tests run one after another -->
 	<test thread-count="5" name="Test">
 		<classes>
 			<class name="com.typicode.tests.TypicodeTest" />

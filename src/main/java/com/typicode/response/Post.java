@@ -1,10 +1,17 @@
 package com.typicode.response;
 
+/**
+ * A post from GET /posts, mapped from JSON by ResponseBuilder.
+ */
 public class Post {
 
+	// Id of the post
 	private int id;
+	// Id of the user who wrote the post
 	private int userId;
+	// Title of the post
 	private String title;
+	// Text of the post
 	private String body;
 
 	public int getId() {

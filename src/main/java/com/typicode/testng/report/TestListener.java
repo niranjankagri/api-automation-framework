@@ -25,11 +25,17 @@ import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.xml.XmlSuite;
 
+/**
+ * TestNG reporter (registered in testng.xml) that writes custom-emailable-report.html to the TestNG
+ * output folder (target/surefire-reports with Maven, test-output in the IDE).
+ * It fills the placeholders ($...$) of the HTML template with a suite summary and one row per test method.
+ */
 public class TestListener implements IReporter {
 
 	// This is the customize emailable report template file path.
 	private final String emailableReportTemplateFile = System.getProperty("user.dir")
 			+ "/src/resources/customize-emailable-report-template.html";
+	// Counts of the last <test> processed by getTestSuiteSummary, shown in the report header
 	int totalTestCount;
 	int totalTestPassed;
 	int totalTestFailed;
@@ -350,6 +356,12 @@ public class TestListener implements IReporter {
 		return retStrBuf.toString();
 	}
 
+	/**
+     * Called by TestNG after all suites have run: builds and writes the custom report
+     * @param  xmlSuites        the suites as defined in testng.xml
+     * @param  suites           the suites with their results
+     * @param  outputDirectory  the TestNG output folder the report is written to
+     */
 	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
 		try {
 			// Get content data in TestNG report template file.

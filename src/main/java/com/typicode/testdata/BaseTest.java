@@ -15,24 +15,45 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.typicode.utils.Util;
 
+/**
+ * Base class for all test classes: gives access to the test data and creates the Extent report
+ * (test-output/STMExtentReport.html) with one entry per test method.
+ */
 public abstract class BaseTest extends TestDataLoader {
 
+	// The Extent report of the current <test> in testng.xml
 	ExtentReports extent;
+	// Extent entry of the running test method
 	ExtentTest logger;
-	
+
+	/**
+     * Get the Extent entry of the running test method
+     * @return ExtentTest  the test entry.
+     */
 	public ExtentTest getLogger() {
 		return logger;
 	}
 
+	/**
+     * Set the Extent entry of the running test method
+     * @param  logger  the test entry.
+     */
 	public void setLogger(ExtentTest logger) {
 		this.logger = logger;
 	}
-	
+
+	/**
+     * Delete the Allure results of the previous run, so the Allure report shows only this run
+     */
 	@BeforeSuite
 	public void cleanUp() {
 		Util.cleanFilesOfDirectory(System.getProperty("user.dir") + "/allure-results");
 	}
-	
+
+	/**
+     * Create the Extent entry for the test method that is about to run, and log its name
+     * @param  method  the test method (injected by TestNG).
+     */
 	@BeforeMethod
 	public void beforeMethod(Method method) {
 		logger = extent.createTest(method.getName());
@@ -40,6 +61,10 @@ public abstract class BaseTest extends TestDataLoader {
 		Util.logInfoMessage("################################ " + method.getName() + " ################################");
 	}
 	
+	/**
+     * Create the Extent report, apply src/resources/extent-config.xml and add the environment details
+     * @throws IOException  if the config file cannot be read.
+     */
 	@BeforeTest
 	public void startReport() throws IOException {
 		ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-output/STMExtentReport.html");
@@ -51,6 +76,10 @@ public abstract class BaseTest extends TestDataLoader {
 		extent.setSystemInfo("User Name", "Niranjan Kumar Agri");
 	}
 
+	/**
+     * Write the result of the finished test method (pass, fail with the error, or skip) to its Extent entry
+     * @param  result  the result of the test method (injected by TestNG).
+     */
 	@AfterMethod
 	public void getResult(ITestResult result) {
 		if (result.getStatus() == ITestResult.FAILURE) {
@@ -63,6 +92,9 @@ public abstract class BaseTest extends TestDataLoader {
 		}
 	}
 
+	/**
+     * Write the Extent report to disk
+     */
 	@AfterTest
 	public void endReport() {
 		extent.flush();

@@ -17,10 +17,13 @@ import com.typicode.utils.Util;
 
 import io.qameta.allure.Step;
 
+/**
+ * Requests for the /comments resource, plus the email format check on comments.
+ */
 public class CommentManager extends RequestBuilder {
 
 	/**
-     * Get the list of all comments done on a particular posts
+     * Get the list of all comments on all posts
      * @return List<Comment>   the list of Comment class object
      */
 	@SuppressWarnings("unchecked")
@@ -33,7 +36,8 @@ public class CommentManager extends RequestBuilder {
 	}
 	
 	/**
-     * Get the list of all comments done on a particular posts
+     * Get the list of all comments done on a particular post
+     * @param  postId          the id of the post.
      * @return List<Comment>   the list of Comment class object
      */
 	@SuppressWarnings("unchecked")
@@ -46,9 +50,9 @@ public class CommentManager extends RequestBuilder {
 	}
 	
 	/**
-     * Get the list of all comments done on posts
-     * @param List<Post>   the list of Post class object
-     * @return List<Comment>   the list of Comment class object
+     * Get the list of all comments done on posts (one request per post)
+     * @param  userPosts       the list of Post class object
+     * @return List<Comment>   the comments of all the posts, in one list
      */
 	public List<Comment> getAllCommentsOnPostsByPostId(List<Post> userPosts) {
 		List<Comment> listOfCommentsOnPosts =  new ArrayList<Comment>();
@@ -60,9 +64,11 @@ public class CommentManager extends RequestBuilder {
 	}
 	
 	/**
-     * Validate email format on all comments 
-     * @param   List<Comment>  the list of Comment class object
-     * @return  SoftAssert     the assert value of all emails.
+     * Validate email format on all comments
+     * Uses soft asserts, so every invalid email is collected; call softAssert.assertAll() afterwards.
+     * @param   softAssert       the soft assert that collects the results
+     * @param   commentsOnPosts  the list of Comment class object
+     * @return  SoftAssert       the assert value of all emails.
      */
 	@Step("Validate emails in the comment section are in the proper format")
 	public SoftAssert validateEmailInAllComments(SoftAssert softAssert, List<Comment> commentsOnPosts) {

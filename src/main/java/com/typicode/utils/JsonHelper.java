@@ -3,6 +3,9 @@ package com.typicode.utils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Small helpers for turning JSON text into org.json objects.
+ */
 public class JsonHelper {
 
 	/**
@@ -13,7 +16,7 @@ public class JsonHelper {
 	public static JSONObject toJSONObject(String jsonString) {
 		return new JSONObject(jsonString);
 	}
-	
+
 	/**
      * Convert string to an JSONArray
      * @param  jsonString  the json in string format.
@@ -22,5 +25,5 @@ public class JsonHelper {
 	public static JSONArray toJSONArray(String jsonString) {
 		return new JSONArray(jsonString);
 	}
-	
+
 }

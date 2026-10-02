@@ -14,18 +14,26 @@ import com.aventstack.extentreports.Status;
 
 import net.datafaker.Faker;
 
+/**
+ * Shared helpers: logging (console, applog.txt and the Extent report), the email format check,
+ * random test data and file cleanup.
+ */
 public class Util {
 
+	// Valid email: name@domain.tld with a 2-6 letter top-level domain (matched case-insensitively)
 	public static String EMAIL_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+	// Log4j2 logger (configured in log4j2.properties)
 	final static Logger logger = LogManager.getLogger(Util.class);
+	// Extent test node of the running test; set by BaseTest before each test method
 	private static ExtentTest extendedLogger;
+	// Random data generator
 	private static Faker faker = new Faker();
-	
+
 	/**
-     * Check String is in particular format
-     * @param  regex  
-     * @param  str
-     * @return boolean 
+     * Check String is in particular format (ignoring upper/lower case)
+     * @param  regex    the regular expression to look for
+     * @param  str      the text to check
+     * @return boolean  true if the text contains a match.
      */
 	public static boolean isStringPresentWithoutCase(String regex, String str) {
 		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
@@ -34,19 +42,27 @@ public class Util {
 	}
 	
 	/**
-     * Logs a info message
-     * @param  message  
+     * Logs a info message to the Extent report (as a passed step), the console and applog.txt
+     * @param  message  the message to log
      */
 	public static void logInfoMessage(String message) {
 		getLogger().log(Status.PASS, message);
 		logger.info(message);
 	}
-	
-	
+
+
+	/**
+     * Get the Extent test node of the running test
+     * @return ExtentTest  the test node.
+     */
 	public static ExtentTest getLogger() {
 		return extendedLogger;
 	}
-	
+
+	/**
+     * Set the Extent test node that log messages are written to
+     * @param  extendedLogger  the test node of the running test.
+     */
 	public static void setExtendedLogger(ExtentTest extendedLogger) {
 		Util.extendedLogger = extendedLogger;
 	}
@@ -54,14 +70,15 @@ public class Util {
 	/**
      * Generates a random word
      *
-     * @return the string
+     * @return String  a random lorem ipsum word.
      */
     public static String getRandomWord() {
     	return String.valueOf(faker.lorem().word());
     }
 	
 	/**
-     * Clean files of directory
+     * Clean files of directory (the directory itself is kept)
+     * @param  directory  the path of the directory to empty
      */
     public static void cleanFilesOfDirectory(String directory) { 
         try {

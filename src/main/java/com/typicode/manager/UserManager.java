@@ -12,10 +12,13 @@ import com.typicode.utils.Util;
 
 import io.qameta.allure.Step;
 
+/**
+ * Requests for the /users resource. Each method checks the status code and maps the JSON onto User objects.
+ */
 public class UserManager extends RequestBuilder {
 
 	/**
-     * Get the detail of users by username
+     * Get the detail of all users
      * @return List<User>   the list of User class object.
      */
 	@SuppressWarnings("unchecked")
@@ -29,7 +32,8 @@ public class UserManager extends RequestBuilder {
 	
 	/**
      * Get the detail of user by username
-     * @param username   the username of user. 
+     * Fails the test if not exactly one user has this username.
+     * @param username   the username of user.
      * @return User      the User class object.
      */
 	@SuppressWarnings("unchecked")
@@ -40,6 +44,7 @@ public class UserManager extends RequestBuilder {
 		Assert.assertEquals(response.getStatusCode(), StatusCode.OK, "Response code should be 200");
 		
 		List<User> usersList = (List<User>) response.getResponseAsObjectList(new User[]{});
+		// Usernames are unique, so the search must return exactly one user
 		Util.logInfoMessage("Username should not be duplicate : " + usersList.size());
 		Assert.assertEquals(usersList.size(), 1);
 		
