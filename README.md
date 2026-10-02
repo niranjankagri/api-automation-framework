@@ -8,14 +8,14 @@ This is the 2024 version of the framework. The refactored, up-to-date version li
 
 | | |
 |---|---|
-| Language | Java 1.8 |
+| Language | Java 17 |
 | Build | Maven |
-| HTTP client | REST Assured 4.0.0 |
-| Test runner | TestNG 6.14.3 |
-| JSON mapping | Jackson 2.9.8, org.json |
-| Reports | ExtentReports 2, Allure (TestNG adapter), custom TestNG emailable report |
-| Logging | log4j 1.2.17 |
-| Test data | properties file, JavaFaker for random text |
+| HTTP client | REST Assured 6.0.1 |
+| Test runner | TestNG 7.12.0 |
+| JSON mapping | Jackson 2.22.3, org.json |
+| Reports | ExtentReports 5.1.2 (Spark), Allure 2.35.5 (TestNG adapter), custom TestNG emailable report |
+| Logging | Log4j2 2.26.1 |
+| Test data | properties file, Datafaker for random text |
 
 ## Project structure
 
@@ -23,7 +23,6 @@ This is the 2024 version of the framework. The refactored, up-to-date version li
 api-automation-framework
 ├── pom.xml
 ├── testng.xml                         Suite "TypicodeTestSuite" + custom report listener
-├── log4j.properties                   Console + applog.txt logging
 └── src
     ├── main/java/com/typicode
     │   ├── builder        RequestBuilder (GET/POST/PUT/PATCH/DELETE), ResponseBuilder (status, body, JSON → objects)
@@ -33,6 +32,7 @@ api-automation-framework
     │   ├── testdata       BaseTest (Extent report setup), TestDataLoader
     │   ├── testng/report  TestListener (custom emailable HTML report)
     │   └── utils          PropertiesReader, JsonHelper, Util (logging, email regex, random words)
+    ├── main/resources     log4j2.properties (console + applog.txt logging)
     ├── resources          data.properties, extent-config.xml, report template
     └── test/java/com/typicode/tests/TypicodeTest.java
 ```
@@ -65,7 +65,7 @@ JSONPlaceholder fakes write operations: POST, PUT, PATCH and DELETE return reali
 
 ## Running the tests
 
-Requirements: Maven and a JDK that can compile Java 8 sources (tested with JDK 17).
+Requirements: JDK 17 or newer and Maven.
 
 Run from the project root (config files are read relative to the working directory):
 
