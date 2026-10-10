@@ -1,5 +1,7 @@
 # api-automation-framework
 
+[![Tests](https://github.com/niranjankagri/api-automation-framework/actions/workflows/tests.yml/badge.svg)](https://github.com/niranjankagri/api-automation-framework/actions/workflows/tests.yml)
+
 A REST API test automation framework built with **Java**, **REST Assured** and **TestNG**, testing the public [JSONPlaceholder](https://jsonplaceholder.typicode.com) API.
 
 This is the 2024 version of the framework. The refactored, up-to-date version lives in [api-automation](https://github.com/niranjankagri/api-automation).
@@ -10,19 +12,22 @@ This is the 2024 version of the framework. The refactored, up-to-date version li
 |---|---|
 | Language | Java 17 |
 | Build | Maven |
-| HTTP client | REST Assured 6.0.1 |
+| HTTP client | REST Assured 6.1.0 |
 | Test runner | TestNG 7.12.0 |
 | JSON mapping | Jackson 2.22.3, org.json |
 | Reports | ExtentReports 5.1.2 (Spark), Allure 2.35.5 (TestNG adapter), custom TestNG emailable report |
 | Logging | Log4j2 2.26.1 |
 | Test data | properties file, Datafaker for random text |
+| CI | GitHub Actions (JDK 17) |
 
 ## Project structure
 
 ```
 api-automation-framework
 ├── pom.xml
+├── .github/workflows/tests.yml        GitHub Actions: runs ci-testng.xml on every push
 ├── testng.xml                         Suite "TypicodeTestSuite" + custom report listener
+├── ci-testng.xml                      Same suite without the report-demo tests (used by CI)
 └── src
     ├── main/java/com/typicode
     │   ├── builder        RequestBuilder (GET/POST/PUT/PATCH/DELETE), ResponseBuilder (status, body, JSON → objects)
@@ -71,6 +76,12 @@ Run from the project root (config files are read relative to the working directo
 
 ```bash
 mvn clean test
+```
+
+To run only the real tests, without the three report-demo tests (`passTest`, `failTest`, `skipTest`, group `demo`), use the CI suite. GitHub Actions runs exactly this on every push and pull request, and keeps the Extent, custom emailable and Allure results as an artifact:
+
+```bash
+mvn clean test -DsuiteXmlFile=ci-testng.xml
 ```
 
 Test data lives in `src/resources/data.properties`:

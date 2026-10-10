@@ -185,7 +185,7 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * Demo test that always passes, to show the passed layout in the reports
 	 */
-	@Test (description="Checking pass test layout")
+	@Test (description="Checking pass test layout", groups = "demo")
 	@Description("Test Description: Pass test layout")
 	public void passTest(){
 		Assert.assertTrue(true);
@@ -194,7 +194,7 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * Demo test that always fails, to show the failed layout in the reports
 	 */
-	@Test (description="Checking fail test layout")
+	@Test (description="Checking fail test layout", groups = "demo")
 	@Description("Test Description: Fail test layout")
 	public void failTest(){
 		Assert.assertTrue(false);
@@ -203,7 +203,7 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * Demo test that is always skipped, to show the skipped layout in the reports
 	 */
-	@Test (description="Checking skip test layout")
+	@Test (description="Checking skip test layout", groups = "demo")
 	@Description("Test Description: Skip test layout")
 	public void skipTest(){
 		throw new SkipException("Skipping - This is not ready for testing ");

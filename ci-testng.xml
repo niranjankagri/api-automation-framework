@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+	TestNG suite for CI: the same tests as testng.xml without the report-demo tests
+	(group "demo": passTest, failTest and skipTest, which pass, fail and skip on purpose
+	to show the report layouts), so a green build means every real test passed.
+	Run with:  mvn clean test -DsuiteXmlFile=ci-testng.xml
+-->
+<suite name="TypicodeTestSuite">
+	<listeners>
+		<listener class-name="com.typicode.testng.report.TestListener" />
+	</listeners>
+	<test name="Test">
+		<groups>
+			<run>
+				<exclude name="demo" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.typicode.tests.TypicodeTest" />
+		</classes>
+	</test>
+</suite>
