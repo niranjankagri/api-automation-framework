@@ -35,7 +35,7 @@ public class TestListener implements IReporter {
 	// This is the customize emailable report template file path.
 	private final String emailableReportTemplateFile = System.getProperty("user.dir")
 			+ "/src/resources/customize-emailable-report-template.html";
-	// Counts of the last <test> processed by getTestSuiteSummary, shown in the report header
+	// Counts of the last <test> processed by getTestSuiteSummary, shown in the pie chart
 	int totalTestCount;
 	int totalTestPassed;
 	int totalTestFailed;
@@ -170,7 +170,7 @@ public class TestListener implements IReporter {
 		return retBuf.toString();
 	}
 
-	/* Convert long type deltaTime to format hh:mm:ss:mi. */
+	/* Format a duration as hours:minutes:seconds:milliseconds, each a running total (75 s -> 0:1:75:75000), not a clock time. */
 	private String convertDeltaTimeToString(long deltaTime) {
 		StringBuffer retBuf = new StringBuffer();
 

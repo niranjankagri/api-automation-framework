@@ -1,7 +1,7 @@
 # Runs the API tests on every push and pull request to main, and on demand.
-# Uses ci-testng.xml: the full suite without the two report-demo tests that fail and skip
-# on purpose, so a green build means every real test passed.
-# The Extent report, the custom emailable report and the log are kept as an artifact.
+# Uses ci-testng.xml: the full suite without the three report-demo tests (group "demo": passTest,
+# and failTest and skipTest, which fail and skip on purpose), so a green build means every real test passed.
+# The Extent report, the custom emailable report, the Allure results and the log are kept as an artifact.
 name: Tests
 
 on:
