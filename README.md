@@ -84,6 +84,8 @@ To run only the real tests, without the three report-demo tests (`passTest`, `fa
 mvn clean test -DsuiteXmlFile=ci-testng.xml
 ```
 
+The artifact is called **test-reports**; [Automation Coverage & Quality Intelligence](https://github.com/niranjankagri/automation-coverage-quality-intelligence) reads its Allure results for its cross-repository dashboard. `main` is protected by a ruleset: every change goes through a pull request, and this CI job must pass before it is merged.
+
 Test data lives in `src/resources/data.properties`:
 
 ```properties
@@ -121,3 +123,7 @@ The screenshots come from a full run: 12 tests passed, plus `failTest` and `skip
 3. Add a manager in `manager/` that uses `RequestBuilder` and `ResponseBuilder`.
 4. Expose it through a static getter in `Manager`.
 5. Write the test in `TypicodeTest` (or a new class that extends `BaseTest`) and add it to `testng.xml`.
+
+## License
+
+[MIT](LICENSE)
