@@ -84,7 +84,11 @@ To run only the real tests, without the three report-demo tests (`passTest`, `fa
 mvn clean test -DsuiteXmlFile=ci-testng.xml
 ```
 
-The artifact is called **test-reports**; [Automation Coverage & Quality Intelligence](https://github.com/niranjankagri/automation-coverage-quality-intelligence) reads its Allure results for its cross-repository dashboard. `main` is protected by a ruleset: every change goes through a pull request, and this CI job must pass before it is merged.
+The artifact is called **test-reports**; [Automation Coverage & Quality Intelligence](https://github.com/niranjankagri/automation-coverage-quality-intelligence) reads its Allure results for its cross-repository dashboard.
+
+CI also runs every Monday at 22:30 UTC without a code change, so a broken dependency or a change outside the repository shows up within a week. Dependabot proposes dependency and GitHub Actions updates once a month (minor and patch updates grouped, major versions as separate pull requests).
+
+`main` is protected by a ruleset: every change goes through a pull request, and this CI job must pass before it is merged.
 
 Test data lives in `src/resources/data.properties`:
 
