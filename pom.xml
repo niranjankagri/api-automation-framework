@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
 			<artifactId>allure-testng</artifactId>
-			<version>2.35.5</version>
+			<version>3.0.0</version>
 		</dependency>
 		<!-- Extent HTML report (see com.typicode.testdata.BaseTest) -->
 		<dependency>
