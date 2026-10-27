@@ -12,10 +12,10 @@ This is the 2024 version of the framework. The refactored, up-to-date version li
 |---|---|
 | Language | Java 17 |
 | Build | Maven |
-| HTTP client | REST Assured 6.1.0 |
+| HTTP client | REST Assured 6.2.0 |
 | Test runner | TestNG 7.12.0 |
-| JSON mapping | Jackson 2.22.3, org.json |
-| Reports | ExtentReports 5.1.2 (Spark), Allure 2.35.5 (TestNG adapter), custom TestNG emailable report |
+| JSON mapping | Jackson 2.22.4, org.json |
+| Reports | ExtentReports 5.1.2 (Spark), Allure 3.0.0 (TestNG adapter), custom TestNG emailable report |
 | Logging | Log4j2 2.26.1 |
 | Test data | properties file, Datafaker for random text |
 | CI | GitHub Actions (JDK 17) |
