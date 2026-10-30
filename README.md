@@ -63,10 +63,12 @@ Each manager builds the request with `RequestBuilder`, checks the status code, a
 | Users | get all users, get user by username |
 | Posts | get all posts, get posts by user id, create (POST), update (PUT and PATCH), delete |
 | Comments | get all comments, get comments by post id |
-| Main scenario | `validateEmailFormatOnComments`: find the user by username → fetch their posts → fetch every comment on those posts → soft-assert that each email is valid |
+| Main scenario | `tc207_validateEmailFormatOnComments`: find the user by username → fetch their posts → fetch every comment on those posts → soft-assert that each email is valid |
 | Report demo | `passTest`, `failTest`, `skipTest`: show the pass/fail/skip layouts in the reports (`failTest` always fails and `skipTest` always skips, on purpose) |
 
 JSONPlaceholder fakes write operations: POST, PUT, PATCH and DELETE return realistic responses but nothing is stored.
+
+Every real test starts with its case ID (`tc201_...`, description `[TC-201] ...`); TC-201 to TC-211 are written out for a manual run in [docs/manual-test-cases.md](docs/manual-test-cases.md).
 
 ## Running the tests
 
