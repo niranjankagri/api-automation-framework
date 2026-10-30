@@ -26,9 +26,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * GET /users returns at least one user
 	 */
-	@Test (description="Validating get all users endpoint")
+	@Test (description="[TC-201] Validating get all users endpoint")
 	@Description("Test Description: Validating get all users endpoint")
-	public void validateGetAllUsersEndpoint() {
+	public void tc201_validateGetAllUsersEndpoint() {
 		List<User> usersList = Manager.getUserManager().getAllUsers();
 		Assert.assertNotEquals(usersList.size(), 0);
 	}
@@ -36,9 +36,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * GET /users?username= finds the user from data.properties, with every field filled
 	 */
-	@Test (description="Validating get user by username endpoint")
+	@Test (description="[TC-202] Validating get user by username endpoint")
 	@Description("Test Description: Validating get user by username endpoint")
-	public void validateGetUserByUsernameEndpoint() {
+	public void tc202_validateGetUserByUsernameEndpoint() {
 		User user = Manager.getUserManager().getUserByUserName(getUsername());
 		Assert.assertEquals(user.getUsername(), getUsername());
 		Assert.assertNotNull(user.getId());
@@ -53,9 +53,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * GET /posts returns at least one post
 	 */
-	@Test (description="Validating get all posts endpoint")
+	@Test (description="[TC-203] Validating get all posts endpoint")
 	@Description("Test Description: Validating get all posts endpoint")
-	public void validateGetAllPostsEndpoint() {
+	public void tc203_validateGetAllPostsEndpoint() {
 		List<Post> postsList = Manager.getPostManager().getAllPosts();
 		Assert.assertNotEquals(postsList.size(), 0);
 	}
@@ -63,9 +63,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * GET /posts?userId= returns the posts of the searched user
 	 */
-	@Test (description="Validating get all posts of user by userid endpoint")
+	@Test (description="[TC-204] Validating get all posts of user by userid endpoint")
 	@Description("Test Description: Validating get all posts of user by userid endpoint")
-	public void validateGetAllPostsOfUserByUserIdEndpoint() {
+	public void tc204_validateGetAllPostsOfUserByUserIdEndpoint() {
 		User user = Manager.getUserManager().getUserByUserName(getUsername());
 		List<Post> userPosts = Manager.getPostManager().getAllPostsOfUserByUserId(user.getId());
 		Assert.assertNotEquals(userPosts.size(), 0);
@@ -74,9 +74,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * GET /comments returns at least one comment
 	 */
-	@Test (description="Validating get all comments endpoint")
+	@Test (description="[TC-205] Validating get all comments endpoint")
 	@Description("Test Description: Validating get all comments endpoint")
-	public void validateGetAllCommentsEndpoint() {
+	public void tc205_validateGetAllCommentsEndpoint() {
 		List<Comment> commentsOnPosts = Manager.getCommentManager().getAllComments();
 		Assert.assertNotEquals(commentsOnPosts.size(), 0);
 	}
@@ -84,9 +84,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * GET /comments?postId= returns comments for the posts of the searched user
 	 */
-	@Test (description="Validating get all comments on post by postid endpoint")
+	@Test (description="[TC-206] Validating get all comments on post by postid endpoint")
 	@Description("Test Description: Validating get all comments on post by postid endpoint")
-	public void validateGetAllCommentsOnPostByPostIdEndpoint() {
+	public void tc206_validateGetAllCommentsOnPostByPostIdEndpoint() {
 		User user = Manager.getUserManager().getUserByUserName(getUsername());
 		List<Post> userPosts = Manager.getPostManager().getAllPostsOfUserByUserId(user.getId());
 		List<Comment> commentsOnPosts = Manager.getCommentManager().getAllCommentsOnPostsByPostId(userPosts);
@@ -97,9 +97,9 @@ public class TypicodeTest extends BaseTest {
 	 * Main scenario: user by username -> their posts -> all comments on those posts;
 	 * every comment email must be valid (soft asserts, so all invalid emails are reported)
 	 */
-	@Test (description="Validating emails in the comment section are in the proper format")
+	@Test (description="[TC-207] Validating emails in the comment section are in the proper format")
 	@Description("Test Description: Validating emails in the comment section are in the proper format")
-	public void validateEmailFormatOnComments() {
+	public void tc207_validateEmailFormatOnComments() {
 		SoftAssert softAssert = new SoftAssert();
 		
 		User user = Manager.getUserManager().getUserByUserName(getUsername());
@@ -113,9 +113,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * POST /posts creates a post with random title and body; the response contains the new id
 	 */
-	@Test (description="Validating create post endpoint")
+	@Test (description="[TC-208] Validating create post endpoint")
 	@Description("Test Description: Validating create post endpoint")
-	public void validateCreatePostEndpoint() {
+	public void tc208_validateCreatePostEndpoint() {
 		User user = Manager.getUserManager().getUserByUserName(getUsername());
 		
 		// Request body for the new post
@@ -134,9 +134,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * PUT /posts/1 replaces post 1 with a new random title and body
 	 */
-	@Test (description="Validating update post by put method")
+	@Test (description="[TC-209] Validating update post by put method")
 	@Description("Test Description: Validating update post by put method")
-	public void validateUpdatePostbyPutMethod() {
+	public void tc209_validateUpdatePostbyPutMethod() {
 		String postTitle = Util.getRandomWord();
 		String postBody = Util.getRandomWord();
 		
@@ -155,9 +155,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * PATCH /posts/1 changes only the title and body of post 1
 	 */
-	@Test (description="Validating update post by patch method")
+	@Test (description="[TC-210] Validating update post by patch method")
 	@Description("Test Description: Validating update post by patch method")
-	public void validateUpdatePostbyPatchMethod() {
+	public void tc210_validateUpdatePostbyPatchMethod() {
 		String postTitle = Util.getRandomWord();
 		String postBody = Util.getRandomWord();
 		
@@ -174,9 +174,9 @@ public class TypicodeTest extends BaseTest {
 	/**
 	 * DELETE /posts/1 returns 200 (the status check is in PostManager)
 	 */
-	@Test (description="Validating delete post endpoint")
+	@Test (description="[TC-211] Validating delete post endpoint")
 	@Description("Test Description: Validating delete post endpoint")
-	public void validateDeletePostEndpoint() {
+	public void tc211_validateDeletePostEndpoint() {
 		
 		Manager.getPostManager().deletePostOfUser(1);
 		
