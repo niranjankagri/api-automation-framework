@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>6.2.0</version>
+			<version>6.3.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<!-- Logging (configured in src/main/resources/log4j2.properties) -->
@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
 			<artifactId>allure-testng</artifactId>
-			<version>3.0.0</version>
+			<version>3.0.1</version>
 		</dependency>
 		<!-- Extent HTML report (see com.typicode.testdata.BaseTest) -->
 		<dependency>
